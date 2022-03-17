@@ -6,7 +6,7 @@ import (
 )
 
 // Delete removes the i. element from s.
-func Delete[Element interface{}](s []Element, i int) []Element {
+func Delete[Element any](s []Element, i int) []Element {
 	if i > len(s) -1 {
 		return s
 	}
@@ -19,7 +19,7 @@ func Delete[Element interface{}](s []Element, i int) []Element {
 }
 
 // Insert inserts an element or a slice of element into s from i. index.
-func Insert[Element interface{}](s []Element, i int, e ...Element) []Element {
+func Insert[Element any](s []Element, i int, e ...Element) []Element {
 	if i > len(s) -1 && len(s) != 0{
 		i = len(s) -1
 	} else if len(s) == 0 {
@@ -33,7 +33,7 @@ func Insert[Element interface{}](s []Element, i int, e ...Element) []Element {
 }
 
 // Duplicate copies slice s into another slice.
-func Duplicate[Element interface{}](s []Element) []Element {
+func Duplicate[Element any](s []Element) []Element {
 	dup := make([]Element, len(s))
 	copy(dup, s)
 
@@ -41,12 +41,12 @@ func Duplicate[Element interface{}](s []Element) []Element {
 }
 
 // Push adds an element at the end of s.
-func Push[Element interface{}](s []Element, e Element) []Element {
+func Push[Element any](s []Element, e Element) []Element {
 	return append(s, e)
 }
 
 // Pop returns the last element from s. Returns zero value of Element of s is empty.
-func Pop[Element interface{}](s []Element) (Element, []Element) {
+func Pop[Element any](s []Element) (Element, []Element) {
 	if len(s) == 0 {
 		t := reflect.TypeOf(s).Elem()
 		return reflect.Zero(t).Interface().(Element), s
@@ -56,7 +56,7 @@ func Pop[Element interface{}](s []Element) (Element, []Element) {
 }
 
 // Shuffle pseudo-randomizes the order of elements of the s.
-func Shuffle[Element interface{}](s []Element) []Element {
+func Shuffle[Element any](s []Element) []Element {
 	rand.Shuffle(len(s), func(i, j int) {
 		s[i], s[j] = s[j], s[i]
 	})
@@ -65,7 +65,7 @@ func Shuffle[Element interface{}](s []Element) []Element {
 }
 
 // Reverse reverses the order of s.
-func Reverse[Element interface{}](s []Element) []Element {
+func Reverse[Element any](s []Element) []Element {
 	for i := len(s)/2-1; i >= 0; i-- {
 		opp := len(s)-1-i
 		s[i], s[opp] = s[opp], s[i]
