@@ -2,7 +2,6 @@ package slices
 
 import (
 	"math/rand"
-	"reflect"
 )
 
 // Delete removes the i. element from s.
@@ -48,8 +47,8 @@ func Push[Element any](s []Element, e Element) []Element {
 // Pop returns the last element from s. Returns zero value of Element of s is empty.
 func Pop[Element any](s []Element) (Element, []Element) {
 	if len(s) == 0 {
-		t := reflect.TypeOf(s).Elem()
-		return reflect.Zero(t).Interface().(Element), s
+		var e Element
+		return e, s
 	}
 
 	return s[len(s)-1], s[:len(s)-1]
