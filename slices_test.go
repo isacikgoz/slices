@@ -1,6 +1,9 @@
 package slices
 
-import "testing"
+import (
+	"math/rand"
+	"testing"
+)
 
 func TestDelete(t *testing.T) {
 	t.Run("Delete from slice", func(t *testing.T) {
@@ -118,6 +121,98 @@ func TestDuplicate(t *testing.T) {
 		s2 := Duplicate(s1)
 		if len(s1) != len(s2) {
 			t.Fatalf("should've duplicate slice")
+		}
+	})
+}
+
+func TestPush(t *testing.T) {
+	t.Run("Push to empty slice", func(t *testing.T) {
+		var s1 []int
+		s1 = Push(s1, 1)
+		if len(s1) != 1 {
+			t.Fatalf("should've pushed element into the slice")
+		}
+	})
+
+	t.Run("Push to a slice", func(t *testing.T) {
+		s1 := []int{0}
+		s1 = Push(s1, 1)
+		if len(s1) != 2 {
+			t.Fatalf("should've pushed element into the slice")
+		}
+	})
+}
+
+func TestPop(t *testing.T) {
+	t.Run("Pop from a slice", func(t *testing.T) {
+		s1 := []int{0}
+		var e int
+		e, s1 = Pop(s1)
+		if len(s1) != 0 {
+			t.Fatalf("should've popped element from the slice")
+		}
+		if e != 0 {
+			t.Fatalf("should've popped correct element from the slice")
+		}
+	})
+
+	t.Run("Pop from an empty slice", func(t *testing.T) {
+		s1 := []int{}
+		var e int
+		e, s1 = Pop(s1)
+		if len(s1) != 0 {
+			t.Fatalf("should've popped element from the slice")
+		}
+		if e != 0 {
+			t.Fatalf("should've popped zero value of the element from the slice")
+		}
+	})
+}
+
+func TestShuffle(t *testing.T) {
+	t.Run("Shuffle an empty slice", func(t *testing.T) {
+		s1 := []int{}
+		s1 = Shuffle(s1)
+	})
+
+	rand.Seed(42) // get default Source to a deterministic state.
+
+	t.Run("Shuffle a slice", func(t *testing.T) {
+		s1 := []int{0, 1}
+		s2 := Duplicate(s1)
+		s1 = Shuffle(s1)
+		if len(s1) != 2 {
+			t.Fatalf("should've shuffled slice, not changing its length")
+		}
+
+		if s1[0] != s2[1] || s1[1] != s2[0] {
+			t.Fatalf("should've shuffled")
+		}
+	})
+}
+
+func TestReverse(t *testing.T) {
+	t.Run("Reverse an empty slice", func(t *testing.T) {
+		defer func() {
+			if r := recover(); r != nil {
+				t.Fatalf("should've not panic")
+			}
+		}()
+
+		s1 := []int{}
+		s1 = Reverse(s1)
+	})
+
+	t.Run("Reverse a slice", func(t *testing.T) {
+		s1 := []int{0, 1}
+		s2 := Duplicate(s1)
+		s1 = Reverse(s1)
+		if len(s1) != 2 {
+			t.Fatalf("should've shuffled slice, not changing its length")
+		}
+
+		if s1[0] != s2[1] || s1[1] != s2[0] {
+			t.Fatalf("should've shuffled")
 		}
 	})
 }

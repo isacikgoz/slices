@@ -1,6 +1,11 @@
 package slices
 
-// Delete removes the i. element from s
+import (
+	"math/rand"
+	"reflect"
+)
+
+// Delete removes the i. element from s.
 func Delete[Element interface{}](s []Element, i int) []Element {
 	if i > len(s) -1 {
 		return s
@@ -13,7 +18,7 @@ func Delete[Element interface{}](s []Element, i int) []Element {
 	return s
 }
 
-// Insert inserts an element or a slice of element into s from i. index
+// Insert inserts an element or a slice of element into s from i. index.
 func Insert[Element interface{}](s []Element, i int, e ...Element) []Element {
 	if i > len(s) -1 && len(s) != 0{
 		i = len(s) -1
@@ -27,10 +32,44 @@ func Insert[Element interface{}](s []Element, i int, e ...Element) []Element {
 	return s
 }
 
-// Duplicate copies slice s into another slice 
+// Duplicate copies slice s into another slice.
 func Duplicate[Element interface{}](s []Element) []Element {
 	dup := make([]Element, len(s))
 	copy(dup, s)
 
 	return dup
+}
+
+// Push adds an element at the end of s.
+func Push[Element interface{}](s []Element, e Element) []Element {
+	return append(s, e)
+}
+
+// Pop returns the last element from s. Returns zero value of Element of s is empty.
+func Pop[Element interface{}](s []Element) (Element, []Element) {
+	if len(s) == 0 {
+		t := reflect.TypeOf(s).Elem()
+		return reflect.Zero(t).Interface().(Element), s
+	}
+
+	return s[len(s)-1], s[:len(s)-1]
+}
+
+// Shuffle pseudo-randomizes the order of elements of the s.
+func Shuffle[Element interface{}](s []Element) []Element {
+	rand.Shuffle(len(s), func(i, j int) {
+		s[i], s[j] = s[j], s[i]
+	})
+
+	return s
+}
+
+// Reverse reverses the order of s.
+func Reverse[Element interface{}](s []Element) []Element {
+	for i := len(s)/2-1; i >= 0; i-- {
+		opp := len(s)-1-i
+		s[i], s[opp] = s[opp], s[i]
+	}
+
+	return s
 }
