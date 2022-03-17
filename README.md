@@ -1,4 +1,4 @@
-![build](https://img.shields.io/github/workflow/status/isacikgoz/slices/Test) ![goversion](https://img.shields.io/github/go-mod/go-version/isacikgoz/slices) [![Go Reference](https://pkg.go.dev/badge/github.com/isacikgoz/slices.svg)](https://pkg.go.dev/github.com/isacikgoz/slices)
+![build](https://img.shields.io/github/workflow/status/isacikgoz/slices/Test) ![goversion](https://img.shields.io/github/go-mod/go-version/isacikgoz/slices) [![Go Reference](https://pkg.go.dev/badge/github.com/isacikgoz/slices.svg)](https://pkg.go.dev/github.com/isacikgoz/slices) ![coverage](https://img.shields.io/codecov/c/github/isacikgoz/slices)
 
 # Slices
 
