@@ -1,3 +1,5 @@
+![build](https://img.shields.io/github/workflow/status/isacikgoz/slices/Test) ![goversion](https://img.shields.io/github/go-mod/go-version/isacikgoz/slices) [![Go Reference](https://pkg.go.dev/badge/github.com/isacikgoz/slices.svg)](https://pkg.go.dev/github.com/isacikgoz/slices)
+
 # Slices
 
 `slices` package provides some utility functions on Go slice types. It leverages the generic types hence requires Go 1.18 and above.
