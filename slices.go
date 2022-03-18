@@ -5,20 +5,21 @@ import (
 )
 
 // Delete removes the i. element from s.
-func Delete[Element any](s []Element, i int) []Element {
+func Delete[T any](s []T, i int) []T {
 	if i > len(s) -1 {
 		return s
 	}
 
+	var e T
 	copy(s[i:], s[i+1:])
-	s[len(s)-1] = s[0]
+	s[len(s)-1] = e
 	s = s[:len(s)-1]
 
 	return s
 }
 
-// Insert inserts an element or a slice of element into s from i. index.
-func Insert[Element any](s []Element, i int, e ...Element) []Element {
+// Insert inserts a T or a slice of T into s from i. index.
+func Insert[T any](s []T, i int, e ...T) []T {
 	if i > len(s) -1 && len(s) != 0{
 		i = len(s) -1
 	} else if len(s) == 0 {
@@ -32,22 +33,22 @@ func Insert[Element any](s []Element, i int, e ...Element) []Element {
 }
 
 // Duplicate copies slice s into another slice.
-func Duplicate[Element any](s []Element) []Element {
-	dup := make([]Element, len(s))
+func Duplicate[T any](s []T) []T {
+	dup := make([]T, len(s))
 	copy(dup, s)
 
 	return dup
 }
 
 // Push adds an element at the end of s.
-func Push[Element any](s []Element, e Element) []Element {
+func Push[T any](s []T, e T) []T {
 	return append(s, e)
 }
 
-// Pop returns the last element from s. Returns zero value of Element of s is empty.
-func Pop[Element any](s []Element) (Element, []Element) {
+// Pop returns the last element from s. Returns zero value of T of s is empty.
+func Pop[T any](s []T) (T, []T) {
 	if len(s) == 0 {
-		var e Element
+		var e T
 		return e, s
 	}
 
@@ -55,7 +56,7 @@ func Pop[Element any](s []Element) (Element, []Element) {
 }
 
 // Shuffle pseudo-randomizes the order of elements of the s.
-func Shuffle[Element any](s []Element) []Element {
+func Shuffle[T any](s []T) []T {
 	rand.Shuffle(len(s), func(i, j int) {
 		s[i], s[j] = s[j], s[i]
 	})
@@ -64,7 +65,7 @@ func Shuffle[Element any](s []Element) []Element {
 }
 
 // Reverse reverses the order of s.
-func Reverse[Element any](s []Element) []Element {
+func Reverse[T any](s []T) []T {
 	for i := len(s)/2-1; i >= 0; i-- {
 		opp := len(s)-1-i
 		s[i], s[opp] = s[opp], s[i]
