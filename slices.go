@@ -20,12 +20,13 @@ func Delete[T any](s []T, i int) []T {
 
 // Insert inserts a T or a slice of T into s from i. index.
 func Insert[T any](s []T, i int, e ...T) []T {
-	if i > len(s) -1 && len(s) != 0{
-		i = len(s) -1
-	} else if len(s) == 0 {
+	slen := len(s)
+	if slen == 0 {
 		i = 0
 	} else if i < 0 {
 		s = append(e, s...)
+	} else if i > slen-1 {
+		i = slen - 1
 	}
 
 	s = append(s[:i], append(e, s[i:]...)...)
