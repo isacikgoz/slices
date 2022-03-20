@@ -25,6 +25,22 @@ s2 := []int{1, 2}
 s1 = slices.Insert(s1, 1, s2...) // will have (0, 1, 2, 3, 4, 5)
 ```
 
+Filter slice
+```Go
+s1 := []string{
+    "http://foo.com",
+    "https://bar.com",
+    "https://example.net",
+    "http://go.org",
+}
+
+s2 := Filter(s1, func(v string) bool {
+    return strings.HasPrefix(v, "https://")
+})
+
+// s2 will be {"https://bar.com", "https://example.net"}
+```
+
 ## License
 
 [BSD-3-Clause](/LICENSE)
