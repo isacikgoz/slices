@@ -73,3 +73,15 @@ func Reverse[T any](s []T) []T {
 
 	return s
 }
+
+// Filter filters the elements of s according to the boolean value of the predicate.
+func Filter[T any](s []T, f func(T) bool) []T {
+	var n []T
+	for _, e := range s {
+		if f(e) {
+			n = append(n, e)
+		}
+	}
+
+	return n
+}
