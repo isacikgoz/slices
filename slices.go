@@ -77,11 +77,11 @@ func Reverse[T any](s []T) []T {
 // Unique removes duplicate values in a slice
 func Unique[T comparable](src []T) []T {
 	var result []T
-	var elemMap = make(map[T]bool)
+	var elemMap = make(map[T]struct{})
 	for i := range src {
-		if !elemMap[src[i]] {
+		if _, ok := elemMap[src[i]]; !ok {
 			result = append(result, src[i])
-			elemMap[src[i]] = true
+			elemMap[src[i]] = struct{}{}
 		}
 	}
 	return result

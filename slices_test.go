@@ -218,6 +218,18 @@ func TestReverse(t *testing.T) {
 }
 
 func TestUnique(t *testing.T) {
+
+	t.Run("make unique an empty slice", func(t *testing.T) {
+		defer func() {
+			if r := recover(); r != nil {
+				t.Fatalf("should've not panic")
+			}
+		}()
+
+		var s1 []int
+		s1 = Unique(s1)
+	})
+
 	t.Run("make unique", func(t *testing.T) {
 		defer func() {
 			if r := recover(); r != nil {
