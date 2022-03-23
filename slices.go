@@ -6,7 +6,7 @@ import (
 
 // Delete removes the i. element from s.
 func Delete[T any](s []T, i int) []T {
-	if i > len(s) -1 {
+	if i > len(s)-1 {
 		return s
 	}
 
@@ -20,8 +20,8 @@ func Delete[T any](s []T, i int) []T {
 
 // Insert inserts a T or a slice of T into s from i. index.
 func Insert[T any](s []T, i int, e ...T) []T {
-	if i > len(s) -1 && len(s) != 0{
-		i = len(s) -1
+	if i > len(s)-1 && len(s) != 0 {
+		i = len(s) - 1
 	} else if len(s) == 0 {
 		i = 0
 	} else if i < 0 {
@@ -66,12 +66,26 @@ func Shuffle[T any](s []T) []T {
 
 // Reverse reverses the order of s.
 func Reverse[T any](s []T) []T {
-	for i := len(s)/2-1; i >= 0; i-- {
-		opp := len(s)-1-i
+	for i := len(s)/2 - 1; i >= 0; i-- {
+		opp := len(s) - 1 - i
 		s[i], s[opp] = s[opp], s[i]
 	}
 
 	return s
+}
+
+// Unique removes duplicate values in a slice
+func Unique[T comparable](src []T) []T {
+	var result []T
+	var elemMap = make(map[T]struct{})
+	for i := range src {
+		if _, ok := elemMap[src[i]]; !ok {
+			result = append(result, src[i])
+			elemMap[src[i]] = struct{}{}
+		}
+	}
+
+	return result
 }
 
 // Filter filters the elements of s according to the boolean value of the predicate.

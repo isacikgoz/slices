@@ -266,3 +266,35 @@ func TestFilter(t *testing.T) {
 		}
 	})
 }
+
+func TestUnique(t *testing.T) {
+	t.Run("make unique an empty slice", func(t *testing.T) {
+		defer func() {
+			if r := recover(); r != nil {
+				t.Fatalf("should've not panic")
+			}
+		}()
+
+		var s1 []int
+		_ = Unique(s1)
+	})
+
+	t.Run("make unique", func(t *testing.T) {
+		defer func() {
+			if r := recover(); r != nil {
+				t.Fatalf("should've not panic")
+			}
+		}()
+		s1 := []int{1, 2, 2, 3, 4, 2, 4}
+		s2 := []int{1, 2, 3, 4}
+		s1 = Unique(s1)
+		if len(s1) != len(s2) {
+			t.Fatalf("should've to be the same length")
+		}
+		for i := range s1 {
+			if s1[i] != s2[i] {
+				t.Fatalf("should've to be the same")
+			}
+		}
+	})
+}
