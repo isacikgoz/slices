@@ -2,6 +2,8 @@ package slices
 
 import (
 	"math/rand"
+	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -217,8 +219,55 @@ func TestReverse(t *testing.T) {
 	})
 }
 
-func TestUnique(t *testing.T) {
+func TestFilter(t *testing.T) {
+	t.Run("Filter an empty slice", func(t *testing.T) {
+		defer func() {
+			if r := recover(); r != nil {
+				t.Fatalf("should've not panic")
+			}
+		}()
 
+		s1 := []int{}
+		_ = Filter(s1, func(v int) bool {
+			return v%2 == 0
+		})
+	})
+
+	t.Run("Filter a string slice", func(t *testing.T) {
+		s1 := []string{
+			"http://foo.com",
+			"https://bar.com",
+			"https://example.net",
+			"http://go.org",
+		}
+
+		s2 := Filter(s1, func(v string) bool {
+			return strings.HasPrefix(v, "https://")
+		})
+
+		want := []string{"https://bar.com", "https://example.net"}
+
+		if !reflect.DeepEqual(s2, want) {
+			t.Fatalf("should've filtered")
+		}
+	})
+
+	t.Run("Filter an int slice", func(t *testing.T) {
+		s1 := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+
+		s2 := Filter(s1, func(v int) bool {
+			return v%2 == 0
+		})
+
+		want := []int{0, 2, 4, 6, 8}
+
+		if !reflect.DeepEqual(s2, want) {
+			t.Fatalf("should've filtered")
+		}
+	})
+}
+
+func TestUnique(t *testing.T) {
 	t.Run("make unique an empty slice", func(t *testing.T) {
 		defer func() {
 			if r := recover(); r != nil {
@@ -227,7 +276,7 @@ func TestUnique(t *testing.T) {
 		}()
 
 		var s1 []int
-		s1 = Unique(s1)
+		_ = Unique(s1)
 	})
 
 	t.Run("make unique", func(t *testing.T) {
