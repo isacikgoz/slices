@@ -99,3 +99,20 @@ func Filter[T any](s []T, f func(T) bool) []T {
 
 	return n
 }
+
+// Diff returns the values from src that are not present in other slices
+func Diff[T comparable](src []T, arrays ...[]T) []T {
+	var elemMap = make(map[T]struct{})
+	for _, array := range arrays {
+		for i := range array {
+			elemMap[array[i]] = struct{}{}
+		}
+	}
+	var result = make([]T, 0, len(src))
+	for i := range src {
+		if _, ok := elemMap[src[i]]; !ok {
+			result = append(result, src[i])
+		}
+	}
+	return result
+}
