@@ -298,3 +298,35 @@ func TestUnique(t *testing.T) {
 		}
 	})
 }
+
+func TestSort(t *testing.T) {
+	o := []int{1, 95, 2, 3, -10, 3, 22, 554, 2, 1, 33}
+
+	expected := []int{-10, 1, 1, 2, 2, 3, 3, 22, 33, 95, 554}
+	expectedInv := []int{554, 95, 33, 22, 3, 3, 2, 2, 1, 1, -10}
+
+	sorted := Sort(o, func(last int, value int) bool {
+		return last > value
+	})
+
+	sortedInv := Sort(o, func(last int, value int) bool {
+		return last < value
+	})
+
+	if len(o) != len(sorted) || len(o) != len(sortedInv) {
+		t.Error("length error")
+	}
+
+	// Validate equal
+	for i := range expected {
+		if sorted[i] != expected[i] {
+			t.Error("error in sort function", sorted[i], expected[i], i)
+		}
+	}
+
+	for i := range expectedInv {
+		if sortedInv[i] != expectedInv[i] {
+			t.Error("error in sort function", sorted[i], expected[i], i)
+		}
+	}
+}

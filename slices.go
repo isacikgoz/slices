@@ -99,3 +99,26 @@ func Filter[T any](s []T, f func(T) bool) []T {
 
 	return n
 }
+
+// Sort function
+func Sort[T any](s []T, fn func(T, T) bool) []T {
+	temp := make([]T, len(s))
+	copy(temp, s) // Copy slice because this is a reference
+
+	var n []T // Init return slice
+
+	for _ = range temp {
+		tv, tk := temp[0], 0 // Init with first value
+
+		for k, v := range temp {
+			if fn(tv, v) {
+				tv, tk = v, k
+			}
+		}
+
+		n = append(n, tv)
+		temp = Delete(temp, tk)
+	}
+
+	return n
+}
