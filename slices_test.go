@@ -326,7 +326,7 @@ func TestSort(t *testing.T) {
 
 	for i := range expectedInv {
 		if sortedInv[i] != expectedInv[i] {
-			t.Error("error in sort function", sorted[i], expected[i], i)
+			t.Error("error in sort function", sortedInv[i], expectedInv[i], i)
 		}
 	}
 }
