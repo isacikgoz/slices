@@ -339,4 +339,24 @@ func TestSort(t *testing.T) {
 			}
 		}
 	})
+
+	s := []string{"aa", "az", "a", "aA", "za", "zz", "ba"}
+	t.Run("Test ASC string slice", func(t *testing.T) {
+		expected := []string{"a", "aA", "aa", "az", "ba", "za", "zz"}
+
+		sorted := Sort(s, func(last string, value string) bool {
+			return last > value
+		})
+
+		if len(s) != len(sorted) {
+			t.Error("length error")
+		}
+
+		// Validate equal
+		for i := range expected {
+			if sorted[i] != expected[i] {
+				t.Error("error in desc sort function", sorted[i], expected[i], i)
+			}
+		}
+	})
 }

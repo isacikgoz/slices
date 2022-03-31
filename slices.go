@@ -105,9 +105,9 @@ func Sort[T any](s []T, fn func(T, T) bool) []T {
 	temp := make([]T, len(s))
 	copy(temp, s) // Copy slice because this is a reference
 
-	var n []T // Init return slice
+	n := make([]T, len(s)) // Init return slice
 
-	for _ = range temp {
+	for i, _ := range temp {
 		tv, tk := temp[0], 0 // Init with first value
 
 		for k, v := range temp {
@@ -116,7 +116,7 @@ func Sort[T any](s []T, fn func(T, T) bool) []T {
 			}
 		}
 
-		n = append(n, tv)
+		n[i] = tv
 		temp = Delete(temp, tk)
 	}
 
