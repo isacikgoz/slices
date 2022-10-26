@@ -298,3 +298,45 @@ func TestUnique(t *testing.T) {
 		}
 	})
 }
+
+func TestDiff(t *testing.T) {
+	t.Run("run with an empty slice", func(t *testing.T) {
+		defer func() {
+			if r := recover(); r != nil {
+				t.Fatalf("should've not panic")
+			}
+		}()
+
+		var s1 []int
+		s1 = Diff(s1, s1)
+		if len(s1) != 0 {
+			t.Fatalf("should've to be empty")
+		}
+	})
+
+	t.Run("get diff", func(t *testing.T) {
+		defer func() {
+			if r := recover(); r != nil {
+				t.Fatalf("should've not panic")
+			}
+		}()
+
+		var s1 = []int{1, 2, 3}
+		var s2 = []int{3, 4}
+		// sh
+
+		if !reflect.DeepEqual(Diff(s1, s2), []int{1, 2}) {
+			t.Fatalf("should've to be the same")
+		}
+
+		var s3 = []int{2, 3}
+		if !reflect.DeepEqual(Diff(s1, s2, s3), []int{1}) {
+			t.Fatalf("should've to be the same")
+		}
+
+		var s4 = []int{1}
+		if !reflect.DeepEqual(Diff(s1, s2, s3, s4), []int{}) {
+			t.Fatalf("should've to be the same")
+		}
+	})
+}
